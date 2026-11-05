@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<idea name="OpenCode CLI Integration">
-  <settings>
-    <setting name="shellCommands.enable" value="true"/>
-    <setting name="outputFormat.json" value="true"/>
-  </settings>
-</project>

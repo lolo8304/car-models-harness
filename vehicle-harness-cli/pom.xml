@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><project version="2.0">
-  <name>Vehicle-Harness-CLI</name>
-  <description>Vehicle Search CLI Interface with Mock Data & OpenCode Integration</description>
-  <source>vehicle-harness-cli/src/main/java</source>
-</project>
