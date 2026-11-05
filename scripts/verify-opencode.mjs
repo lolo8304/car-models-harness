@@ -32,7 +32,7 @@ const checks = [
     expected: { total: 2, page: 2, limit: 1, vehicleIds: ["ve-002"] },
   },
 ];
-try {
+async function verify() {
   loadEnvironment(resolve(root, ".env"));
   const config = apiConfig(process.env);
   if (
@@ -110,7 +110,8 @@ try {
       2,
     ),
   );
-} catch (error) {
+}
+await verify().catch((error) => {
   // Do not dump execFile errors, which embed full environment-dependent command output.
   console.error(
     JSON.stringify({
@@ -121,4 +122,4 @@ try {
     }),
   );
   process.exitCode = 1;
-}
+});

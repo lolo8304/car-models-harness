@@ -26,11 +26,12 @@
   ],
   "scripts": {
     "build": "node bin/build.mjs",
-    "test": "npm run build && node --test tests/*.test.mjs",
+    "test": "npm run check:error-handling && npm run build && node --test tests/*.test.mjs",
     "mock": "node dist/mock.js",
     "verify:install": "node scripts/verify-install.mjs",
     "prepack": "npm run build",
-    "verify:opencode": "npm run build && node scripts/verify-opencode.mjs"
+    "verify:opencode": "npm run build && node scripts/verify-opencode.mjs",
+    "check:error-handling": "node scripts/check-error-handling.mjs"
   },
   "dependencies": {
     "commander": "^14.0.2"

@@ -54,6 +54,15 @@ export class FileStore implements Store {
     this.path = resolve(path);
   }
   async read() {
+    try {
+      return await this.readCredentials();
+    } catch (error) {
+      if ((error as NodeJS.ErrnoException).code === "ENOENT") return undefined;
+      if (error instanceof AppError) throw error;
+      throw new AppError("AUTH", "Cannot read credential file securely");
+    }
+  }
+  private async readCredentials() {
     let file;
     try {
       file = await open(this.path, constants.O_RDONLY | constants.O_NOFOLLOW);
@@ -66,10 +75,6 @@ export class FileStore implements Store {
       )
         throw new AppError("AUTH", "Credential file must be owner-only (0600)");
       return decode(await file.readFile("utf8"), this.context);
-    } catch (error) {
-      if ((error as NodeJS.ErrnoException).code === "ENOENT") return undefined;
-      if (error instanceof AppError) throw error;
-      throw new AppError("AUTH", "Cannot read credential file securely");
     } finally {
       await file?.close();
     }
@@ -77,6 +82,14 @@ export class FileStore implements Store {
   async write(tokens: Tokens) {
     if (!valid(tokens) || tokens.context !== this.context)
       throw new AppError("AUTH", "Invalid credentials");
+    try {
+      await this.writeCredentials(tokens);
+    } catch (error) {
+      if (error instanceof AppError) throw error;
+      throw new AppError("AUTH", "Cannot save credentials securely");
+    }
+  }
+  private async writeCredentials(tokens: Tokens) {
     const dir = dirname(this.path);
     let temp: string | undefined;
     try {
@@ -102,9 +115,6 @@ export class FileStore implements Store {
       }
       await rename(temp, this.path);
       temp = undefined;
-    } catch (error) {
-      if (error instanceof AppError) throw error;
-      throw new AppError("AUTH", "Cannot save credentials securely");
     } finally {
       if (temp) await unlink(temp).catch(() => {});
     }

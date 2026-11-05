@@ -123,14 +123,15 @@ for (const kind of ["vehicles", "insured", "combined"] as Kind[]) {
     output(await client.search(kind, filters));
   });
 }
-try {
+async function main() {
   if (process.argv.length < 3)
     throw new AppError(
       "VALIDATION",
       "Choose auth, vehicles, insured or combined; see --help",
     );
   await cli.parseAsync(process.argv);
-} catch (error) {
+}
+await main().catch((error: unknown) => {
   if (error instanceof CommanderError && error.exitCode === 0)
     process.exitCode = 0;
   else {
@@ -141,4 +142,4 @@ try {
     process.stderr.write(`${JSON.stringify(errorBody(safe))}\n`);
     process.exitCode = safe instanceof AppError ? exitCodes[safe.code] : 1;
   }
-}
+});

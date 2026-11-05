@@ -135,6 +135,20 @@ export class VehicleClient {
       );
     return data as unknown as Page<T>;
   }
+  private async vehicle(vehicleId: string, asOfDate: string): Promise<Vehicle> {
+    const data = await this.get(
+      this.config.catalogUrl,
+      `/vehicles/${encodeURIComponent(vehicleId)}`,
+      { asOfDate },
+    );
+    if (
+      !isVehicle(data) ||
+      data.vehicleId !== vehicleId ||
+      data.purchasePrice.asOfDate !== asOfDate
+    )
+      throw new AppError("API", "Invalid vehicle detail response");
+    return data;
+  }
   async search(
     kind: Kind,
     input: Record<string, unknown>,
@@ -161,18 +175,7 @@ export class VehicleClient {
         let lookup = cache.get(record.vehicleId);
         if (!lookup) {
           try {
-            const data = await this.get(
-              this.config.catalogUrl,
-              `/vehicles/${encodeURIComponent(record.vehicleId)}`,
-              { asOfDate: search.asOfDate! },
-            );
-            if (
-              !isVehicle(data) ||
-              data.vehicleId !== record.vehicleId ||
-              data.purchasePrice.asOfDate !== search.asOfDate
-            )
-              throw new AppError("API", "Invalid vehicle detail response");
-            lookup = data;
+            lookup = await this.vehicle(record.vehicleId, search.asOfDate!);
           } catch (error) {
             if (error instanceof AppError && error.code === "AUTH") throw error;
             lookup = errorBody(error);
