@@ -1,0 +1,45 @@
+{
+  "name": "vehicle-search-harness",
+  "version": "0.1.0",
+  "description": "Read-only vehicle search CLI and local mock APIs",
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "bin": {
+    "vehicle-cli": "dist/cli.js",
+    "vehicle-mock": "dist/mock.js"
+  },
+  "exports": {
+    ".": "./dist/client.js",
+    "./mock": "./dist/mock.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "HowToBuild-andInstall.md",
+    "How-To-Connect-to-OpenCode.md",
+    "docs/*.md",
+    "Project-Structure-and-Setup.md",
+    ".env.example",
+    "docs/verification/*.json"
+  ],
+  "scripts": {
+    "build": "node bin/build.mjs",
+    "test": "npm run build && node --test tests/*.test.mjs",
+    "mock": "node dist/mock.js",
+    "verify:install": "node scripts/verify-install.mjs",
+    "prepack": "npm run build",
+    "verify:opencode": "npm run build && node scripts/verify-opencode.mjs"
+  },
+  "dependencies": {
+    "commander": "^14.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.0",
+    "typescript": "^5.9.3"
+  },
+  "optionalDependencies": {
+    "@napi-rs/keyring": "^2.1.2"
+  }
+}

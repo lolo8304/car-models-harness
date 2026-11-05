@@ -1,0 +1,56 @@
+{
+  "date": "2026-11-05",
+  "opencodeVersion": "2.2.5",
+  "model": "opencode/big-pickle",
+  "service": "existing background service",
+  "data": "local mock fixtures",
+  "clerkCredentials": "saved login; mock services do not validate tokens",
+  "checks": [
+    {
+      "search": "catalog",
+      "tool": "shell",
+      "command": "node dist/cli.js vehicles search --brand Tesla --as-of 2025-06-01",
+      "exit": 0,
+      "total": 2,
+      "page": 1,
+      "vehicleIds": [
+        "ve-001",
+        "ve-002"
+      ]
+    },
+    {
+      "search": "insured",
+      "tool": "shell",
+      "command": "node dist/cli.js insured search --plate-number \"ZH 638871\"",
+      "exit": 0,
+      "total": 1,
+      "page": 1,
+      "vehicleIds": [
+        "ve-001"
+      ]
+    },
+    {
+      "search": "combined",
+      "tool": "shell",
+      "command": "node dist/cli.js combined search --customer-number C001 --brand tes --mode match --as-of 2025-06-01 --page 2 --limit 1",
+      "exit": 0,
+      "total": 2,
+      "page": 2,
+      "vehicleIds": [
+        "ve-002"
+      ]
+    }
+  ],
+  "automatedRepositoryVerification": "passed",
+  "isolatedPackagedVerification": {
+    "result": "passed",
+    "service": "private",
+    "command": "node prefix/lib/node_modules/vehicle-search-harness/dist/cli.js combined search --customer-number C001 --brand tes --mode match --as-of 2025-06-01 --page 2 --limit 1",
+    "exit": 0,
+    "total": 2,
+    "page": 2,
+    "vehicleIds": [
+      "ve-002"
+    ]
+  }
+}
