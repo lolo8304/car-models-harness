@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<compilerConfig>
+  <runConfigurationName>Vehicle-API</runConfigurationName>
+  <configuration type="node">
+    <name>NodeJS</name>
+    <sourceCode>vehicle-api-project/src/main/java</sourceCode>
+    <includeFiles>true</includeFiles>
+    <excludeFiles>false</excludeFiles>
+    <nodeExecutablePath nodejsVersion="18.20.0" npmVersion="latest"/>
+  </configuration>
+</compilerConfig>

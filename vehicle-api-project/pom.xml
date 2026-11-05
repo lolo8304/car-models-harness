@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?><project version="2.0">
+  <name>Vehicle-Auth-API</name>
+  <description>Vehicle Catalog & Insured Vehicle API with JWT auth</description>
+  <source>vehicle-api-project/src/main/java</source>
+  <properties>
+    <node.version>18.20.0</node.version>
+    <npm.package>@opentelemetry/api-ts</npm.package>
+  </properties>
+</project>

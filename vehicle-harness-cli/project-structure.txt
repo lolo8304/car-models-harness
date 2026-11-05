@@ -1,0 +1,8 @@
+Vehicle Harness CLI Project
+# Vehicle Search CLI with OpenCode Integration
+
+Project Root: vehicle-harness-cli
+Node.js + TypeScript + Commander
+CLI Type: Command-line interface for vehicle search operations
+API Layer: Mock API for demo purposes
+OpenCode Integration: Shell command hooks via vault.sh
