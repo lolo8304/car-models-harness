@@ -11,27 +11,27 @@
     "vehicle-mock": "dist/mock.js"
   },
   "exports": {
-    ".": "./dist/client.js",
-    "./mock": "./dist/mock.js"
+    ".": "./dist/vehicles/client.js",
+    "./mock": "./dist/vehicles/mock.js",
+    "./common": "./dist/common/index.js",
+    "./vehicles": "./dist/vehicles/index.js"
   },
   "files": [
     "dist",
     "README.md",
-    "HowToBuild-andInstall.md",
-    "How-To-Connect-to-OpenCode.md",
-    "docs/*.md",
-    "Project-Structure-and-Setup.md",
+    "docs/common/*.md",
+    "docs/vehicles/*.md",
     ".env.example",
-    "docs/verification/*.json"
+    "docs/vehicles/verification/*.json"
   ],
   "scripts": {
     "build": "node bin/build.mjs",
-    "test": "npm run check:error-handling && npm run build && node --test tests/*.test.mjs",
+    "test": "npm run check:error-handling && npm run build && node --test tests/common/*.test.mjs tests/vehicles/*.test.mjs",
     "mock": "node dist/mock.js",
-    "verify:install": "node scripts/verify-install.mjs",
+    "verify:install": "node scripts/vehicles/verify-install.mjs",
     "prepack": "npm run build",
-    "verify:opencode": "npm run build && node scripts/verify-opencode.mjs",
-    "check:error-handling": "node scripts/check-error-handling.mjs"
+    "verify:opencode": "npm run build && node scripts/vehicles/verify-opencode.mjs",
+    "check:error-handling": "node scripts/common/check-error-handling.mjs"
   },
   "dependencies": {
     "commander": "^14.0.2"
